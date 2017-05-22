@@ -11,7 +11,19 @@ namespace TalentManager.Web.Controllers
 {
     public class EmployeesController : ApiController
     {
-        private Context context = new Context();
+        // private Context context = new Context();
+
+        private IContext context = null;
+
+        public EmployeesController()
+        {
+            this.context = new Context();
+        }
+
+        public EmployeesController(IContext context)
+        {
+            this.context = context;
+        }
 
         public HttpResponseMessage Get(int id)
         {
@@ -26,8 +38,10 @@ namespace TalentManager.Web.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (context != null)
-                context.Dispose();
+            if (context != null && context is IDisposable)
+            {
+                ((IDisposable)context).Dispose();
+            }
 
             base.Dispose(disposing);
         }

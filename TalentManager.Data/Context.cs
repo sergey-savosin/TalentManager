@@ -10,12 +10,12 @@ using TalentManager.Domain;
 
 namespace TalentManager.Data
 {
-    public class Context : DbContext
+    public class Context : DbContext, IContext
     {
         public Context() : base("DefaultConnection") { }
 
-        public DbSet<Employee> Employees { get; set; }
-        public DbSet<Department> Departments { get; set; }
+        public IDbSet<Employee> Employees { get; set; }
+        public IDbSet<Department> Departments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
