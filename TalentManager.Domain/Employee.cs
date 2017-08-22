@@ -16,7 +16,7 @@ namespace TalentManager.Domain
         public int DepartmentId { get; set; }
 
         // Independent association
-        public virtual Department Department { get; set; }
+        public /*virtual*/ Department Department { get; set; }
 
         public byte[] RowVersion { get; set; }
     }

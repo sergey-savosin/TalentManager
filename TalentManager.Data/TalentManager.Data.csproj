@@ -51,7 +51,9 @@
     <Compile Include="Configuration\DepartmentConfiguration.cs" />
     <Compile Include="Configuration\EmployeeConfiguration.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="EmployeeRepository.cs" />
     <Compile Include="IContext.cs" />
+    <Compile Include="IEmployeeRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
