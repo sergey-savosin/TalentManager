@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TalentManager.Domain
 {
-    public class Employee
+    public class Employee : IIdentifiable
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

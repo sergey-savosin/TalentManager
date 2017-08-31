@@ -22,7 +22,7 @@ namespace TalentManager.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            Database.SetInitializer<Context>(null);
+            //Database.SetInitializer<Context>(null);
 
         }
     }
