@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -7,6 +8,7 @@ using System.Web.Http;
 using System.Web.Http.Tracing;
 using TalentManager.Data;
 using TalentManager.Domain;
+using TalentManager.Web.Models;
 
 namespace TalentManager.Web.Controllers
 {
@@ -15,20 +17,22 @@ namespace TalentManager.Web.Controllers
         private readonly IUnitOfWork uow = null;
         private readonly IRepository<Employee> repository = null;
         private readonly ITraceWriter traceWriter = null;
-
+        private readonly IMapper mapper = null;
 
         public EmployeesController()
         {
             uow = new UnitOfWork();
             repository = new Repository<Employee>(uow);
             this.traceWriter = GlobalConfiguration.Configuration.Services.GetTraceWriter();
+            mapper = Mapper.Instance;
         }
 
-        public EmployeesController(IUnitOfWork uow, IRepository<Employee> repository)
+        public EmployeesController(IUnitOfWork uow, IRepository<Employee> repository, IMapper mapper)
         {
             this.uow = uow;
             this.repository = repository;
             this.traceWriter = GlobalConfiguration.Configuration.Services.GetTraceWriter();
+            this.mapper = mapper;
         }
 
         public HttpResponseMessage Get(int id)
@@ -39,7 +43,12 @@ namespace TalentManager.Web.Controllers
                 var response = Request.CreateResponse(HttpStatusCode.NotFound, "Employee not found");
                 throw new HttpResponseException(response);
             }
-            return Request.CreateResponse<Employee>(HttpStatusCode.OK, employee);
+            //return Request.CreateResponse<Employee>(HttpStatusCode.OK, employee);
+            return Request.CreateResponse<EmployeeDto>(
+                HttpStatusCode.OK,
+                mapper.Map<Employee, EmployeeDto>(employee)
+                );
+
         }
 
         public HttpResponseMessage GetByDepartment(int departmentId)
@@ -53,8 +62,10 @@ namespace TalentManager.Web.Controllers
             throw new HttpResponseException(HttpStatusCode.NotFound);
         }
 
-        public HttpResponseMessage Post(Employee employee)
+        public HttpResponseMessage Post(EmployeeDto employeeDto)
         {
+            var employee = mapper.Map<EmployeeDto, Employee>(employeeDto);
+
             repository.Insert(employee);
             uow.Save();
 

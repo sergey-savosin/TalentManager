@@ -24,6 +24,8 @@ namespace TalentManager.Web
 
             //Database.SetInitializer<Context>(null);
 
+            DtoMapperConfig.CreateMaps();
+
         }
     }
 }
