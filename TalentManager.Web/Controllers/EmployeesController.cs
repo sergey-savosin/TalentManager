@@ -19,14 +19,6 @@ namespace TalentManager.Web.Controllers
         private readonly ITraceWriter traceWriter = null;
         private readonly IMapper mapper = null;
 
-        public EmployeesController()
-        {
-            uow = new UnitOfWork();
-            repository = new Repository<Employee>(uow);
-            this.traceWriter = GlobalConfiguration.Configuration.Services.GetTraceWriter();
-            mapper = Mapper.Instance;
-        }
-
         public EmployeesController(IUnitOfWork uow, IRepository<Employee> repository, IMapper mapper)
         {
             this.uow = uow;
@@ -43,7 +35,6 @@ namespace TalentManager.Web.Controllers
                 var response = Request.CreateResponse(HttpStatusCode.NotFound, "Employee not found");
                 throw new HttpResponseException(response);
             }
-            //return Request.CreateResponse<Employee>(HttpStatusCode.OK, employee);
             return Request.CreateResponse<EmployeeDto>(
                 HttpStatusCode.OK,
                 mapper.Map<Employee, EmployeeDto>(employee)
@@ -56,7 +47,8 @@ namespace TalentManager.Web.Controllers
             var employees = repository.All.Where(e => e.DepartmentId == departmentId);
             if (employees != null && employees.Any())
             {
-                return Request.CreateResponse<IEnumerable<Employee>>(HttpStatusCode.OK, employees);
+                var ar = employees.ToList().Select(e => mapper.Map<Employee, EmployeeDto>(e));
+                return Request.CreateResponse<IEnumerable<EmployeeDto>>(HttpStatusCode.OK, ar);
             }
 
             throw new HttpResponseException(HttpStatusCode.NotFound);

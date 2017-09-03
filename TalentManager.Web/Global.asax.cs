@@ -25,6 +25,7 @@ namespace TalentManager.Web
             //Database.SetInitializer<Context>(null);
 
             DtoMapperConfig.CreateMaps();
+            IocConfig.RegisterDependencyResolver(GlobalConfiguration.Configuration);
 
         }
     }
