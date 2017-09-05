@@ -89,5 +89,39 @@ namespace TalentManager.Test
                 Assert.AreEqual(HttpStatusCode.NotFound, ex.Response.StatusCode);
             }
         }
+
+        [TestMethod]
+        public void MustReturn201AndLinkPost()
+        {
+            // Arrange
+            int id = 12345;
+            var employeeDto = new EmployeeDto { Id = id, FirstName = "John", LastName = "Human" };
+            string requestUri = "http://localhost:56001/api/employees/";
+            Uri uriForNewEmployee = new Uri(new Uri(requestUri), id.ToString());
+
+            IRepository<Employee> repository = MockRepository.GenerateMock<IRepository<Employee>>();
+            repository.Expect(x => x.Insert(null)).IgnoreArguments().Repeat.Once();
+
+            IUnitOfWork uow = MockRepository.GenerateMock<IUnitOfWork>();
+            uow.Expect(x => x.Save()).Return(1).Repeat.Once();
+
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<EmployeeDto, Employee>();
+            });
+
+            var controller = new EmployeesController(uow, repository, Mapper.Instance);
+            controller.SetRequest("employees", HttpMethod.Post, requestUri);
+
+            // Act
+            HttpResponseMessage response = controller.Post(employeeDto);
+
+            // Assert
+            repository.VerifyAllExpectations();
+            uow.VerifyAllExpectations();
+
+            Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
+            Assert.AreEqual(uriForNewEmployee, response.Headers.Location);
+        }
     }
 }
