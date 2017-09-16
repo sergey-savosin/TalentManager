@@ -68,6 +68,7 @@ namespace TalentManager.Web.Controllers
             return response;
         }
 
+        [ConflictExceptionHandler]
         public void Put(int id, Employee employee)
         {
             repository.Update(employee);

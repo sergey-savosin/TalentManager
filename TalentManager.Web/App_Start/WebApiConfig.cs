@@ -19,6 +19,7 @@ namespace TalentManager.Web
             };
 
             // Конфигурация и службы веб-API
+            config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Never;
 
             // Маршруты веб-API
             config.MapHttpAttributeRoutes();

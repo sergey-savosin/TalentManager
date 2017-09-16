@@ -197,6 +197,7 @@
     </Compile>
     <Compile Include="App_Start\DtoMapperConfig.cs" />
     <Compile Include="Models\EmployeeDto.cs" />
+    <Compile Include="Other\ConflictExceptionHandlerAttribute.cs" />
     <Compile Include="Other\MyImportantHandler.cs" />
     <Compile Include="Other\MyNotSoImportantHandler.cs" />
     <Compile Include="Other\StructureMapContainer.cs" />
