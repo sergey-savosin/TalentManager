@@ -200,6 +200,7 @@
     <Compile Include="Other\ConflictExceptionHandlerAttribute.cs" />
     <Compile Include="Other\MyImportantHandler.cs" />
     <Compile Include="Other\MyNotSoImportantHandler.cs" />
+    <Compile Include="Other\OptimisticLockAttribute.cs" />
     <Compile Include="Other\StructureMapContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Other\StructureMapDependencyScope.cs" />
