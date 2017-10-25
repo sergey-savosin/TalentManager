@@ -190,6 +190,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\EmployeesV2Controller.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -198,6 +199,7 @@
     <Compile Include="App_Start\DtoMapperConfig.cs" />
     <Compile Include="Models\EmployeeDto.cs" />
     <Compile Include="Other\ConflictExceptionHandlerAttribute.cs" />
+    <Compile Include="Other\MyControllerSelector.cs" />
     <Compile Include="Other\MyImportantHandler.cs" />
     <Compile Include="Other\MyNotSoImportantHandler.cs" />
     <Compile Include="Other\OptimisticLockAttribute.cs" />

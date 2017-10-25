@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Dispatcher;
+using TalentManager.Web.Other;
 
 namespace TalentManager.Web
 {
@@ -37,6 +38,8 @@ namespace TalentManager.Web
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Services.Replace(typeof(IHttpControllerSelector), new MyControllerSelector(config));
         }
     }
 }
